@@ -52,7 +52,13 @@ def download_keyboard(platform: NavDownload, url: str, key: str) -> InlineKeyboa
         case NavDownload.PLATFORM_ANDROID:
             scheme = APP_ANDROID_SCHEME
             download = APP_ANDROID_LINK
-        case _:
+        case NavDownload.PLATFORM_WINDOWS:
+            scheme = APP_WINDOWS_SCHEME
+            download = APP_WINDOWS_LINK
+        case NavDownload.PLATFORM_LINUX:
+            scheme = APP_WINDOWS_SCHEME
+            download = APP_WINDOWS_LINK
+        case NavDownload.PLATFORM_MACOS:
             scheme = APP_WINDOWS_SCHEME
             download = APP_WINDOWS_LINK
 

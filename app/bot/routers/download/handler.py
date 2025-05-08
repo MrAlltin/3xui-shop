@@ -92,8 +92,12 @@ async def callback_platform(
             platform = _("download:message:platform_ios")
         case NavDownload.PLATFORM_ANDROID:
             platform = _("download:message:platform_android")
-        case _:
+        case NavDownload.PLATFORM_WINDOWS:
             platform = _("download:message:platform_windows")
+        case NavDownload.PLATFORM_LINUX:
+            platform = _("download:message:platform_linux")
+        case NavDownload.PLATFORM_MACOS:
+            platform = _("download:message:platform_macos")
 
     await callback.message.edit_text(
         text=_("download:message:connect_to_vpn").format(platform=platform),

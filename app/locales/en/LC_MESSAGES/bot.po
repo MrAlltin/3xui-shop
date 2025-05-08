@@ -550,6 +550,14 @@ msgstr "🤖 Android"
 msgid "download:message:platform_windows"
 msgstr "💻 Windows"
 
+#: app/bot/routers/download/handler.py:98
+msgid "download:message:platform_linux"
+msgstr "🐧 Linux"
+
+#: app/bot/routers/download/handler.py:100
+msgid "download:message:platform_macos"
+msgstr "🍏 MacOS"
+
 #: app/bot/routers/download/handler.py:99
 msgid "download:message:connect_to_vpn"
 msgstr ""
@@ -584,18 +592,22 @@ msgstr "🔌 Connect"
 #: app/bot/routers/main_menu/handler.py:136
 msgid "main_menu:message:main"
 msgstr ""
-"Welcome, {name}! 🎉\n"
-"\n"
-"3X-UI SHOP — your reliable assistant in the world of free internet. We "
-"offer safe and fast connections to any internet services using the XRAY "
-"protocol. Our service works even in China, Iran, and Russia.\n"
-"\n"
-"🚀 HIGH SPEED\n"
-"🔒 SECURITY\n"
-"📱 SUPPORT FOR ALL PLATFORMS\n"
-"♾️ UNLIMITED\n"
-"✅ GUARANTEE AND TRIAL PERIOD\n"
-"👥 REFERRAL SYSTEM\n"
+"<b>🔐 🎉 Welcome, {name}, to the <s>VPN bot</s> xcapenet.ru Proxy Server Bot! 🔐</b>"
+
+"Here you can purchase reliable access keys for fast, secure, and anonymous internet browsing."
+
+"<b>Why choose our proxy server?</b>"
+"✅ <b>Complete Privacy</b>: Your traffic is encrypted using the VLess protocol."
+"🔓 <b>Bypass Restrictions</b>: Access any websites or services with no limitations from our side."
+"🚀 <b>High Speed + Unlimited Bandwidth</b>: Enjoy a stable connection for streaming, gaming, and work — with no data caps."
+"📱 <b>Cross-Platform Support</b>: iOS, Android, Windows, Linux, macOS — connect from any device."
+"😉 <b>Easy to Use</b>: Your key is activated in under a minute."
+
+"🎁 <b>Free Trial</b>: Try the service for free for 72 hours!"
+"👥 <b>Referral Program</b>: Invite friends and earn bonus days for each subscription — including <u>2nd-level referrals</u>! (Your friends invite others — you benefit too)"
+
+"<i>🔒 We guarantee secure payments and full data anonymity."
+"Please use VPN services in accordance with the laws of your country.</i>"
 
 #: app/bot/routers/main_menu/keyboard.py:25
 msgid "referral:button:get_referred_trial"
@@ -879,7 +891,7 @@ msgid "promocode:message:main"
 msgstr ""
 "🎟️ <b>Activate promocode:</b>\n"
 "\n"
-"<i>Send promocode to activation</i>"
+"<i>Send your promo code in the chat to activate it.</i>"
 
 #: app/bot/routers/subscription/promocode_handler.py:52
 msgid "promocode:ntf:no_available_servers"
