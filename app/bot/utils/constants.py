@@ -5,6 +5,8 @@ APP_WINDOWS_LINK = (
     "https://github.com/hiddify/hiddify-next/releases/download/"
     "v2.0.5/Hiddify-Windows-Setup-x64.exe"
 )
+APP_LINUX_LINK="https://github.com/hiddify/hiddify-app/releases"
+APP_MACOS_LINK="https://github.com/hiddify/hiddify-app/releases"
 
 APP_IOS_SCHEME = "v2raytun://import/"
 APP_ANDROID_SCHEME = "v2raytun://import/"

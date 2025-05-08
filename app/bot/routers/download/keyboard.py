@@ -8,6 +8,8 @@ from app.bot.utils.constants import (
     APP_ANDROID_SCHEME,
     APP_IOS_LINK,
     APP_IOS_SCHEME,
+    APP_LINUX_LINK,
+    APP_MACOS_LINK,
     APP_WINDOWS_LINK,
     APP_WINDOWS_SCHEME,
     CONNECTION_WEBHOOK,
@@ -57,10 +59,10 @@ def download_keyboard(platform: NavDownload, url: str, key: str) -> InlineKeyboa
             download = APP_WINDOWS_LINK
         case NavDownload.PLATFORM_LINUX:
             scheme = APP_WINDOWS_SCHEME
-            download = APP_WINDOWS_LINK
+            download = APP_LINUX_LINK
         case NavDownload.PLATFORM_MACOS:
             scheme = APP_WINDOWS_SCHEME
-            download = APP_WINDOWS_LINK
+            download = APP_MACOS_LINK
 
     connect = f"{url}{CONNECTION_WEBHOOK}?scheme={scheme}&key={key}"
 
