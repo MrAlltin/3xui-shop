@@ -30,6 +30,8 @@ class NavDownload(str, Enum):
     PLATFORM_IOS = f"{PLATFORM}_ios"
     PLATFORM_ANDROID = f"{PLATFORM}_android"
     PLATFORM_WINDOWS = f"{PLATFORM}_windows"
+    PLATFORM_LINUX = f"{PLATFORM}_linux"
+    PLATFORM_MACOS = f"{PLATFORM}_macos"
 
 
 class NavSubscription(str, Enum):
