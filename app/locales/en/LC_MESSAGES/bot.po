@@ -540,7 +540,7 @@ msgstr "📲 <b>Choose your platform:</b>"
 
 #: app/bot/routers/download/handler.py:92
 msgid "download:message:platform_ios"
-msgstr "🍏 IOS"
+msgstr "📱 iOS"
 
 #: app/bot/routers/download/handler.py:94
 msgid "download:message:platform_android"
@@ -548,7 +548,7 @@ msgstr "🤖 Android"
 
 #: app/bot/routers/download/handler.py:96
 msgid "download:message:platform_windows"
-msgstr "💻 Windows"
+msgstr "🖥 Windows"
 
 #: app/bot/routers/download/handler.py:98
 msgid "download:message:platform_linux"
@@ -556,7 +556,7 @@ msgstr "🐧 Linux"
 
 #: app/bot/routers/download/handler.py:100
 msgid "download:message:platform_macos"
-msgstr "🍏 MacOS"
+msgstr "💻 MacOS"
 
 #: app/bot/routers/download/handler.py:99
 msgid "download:message:connect_to_vpn"
@@ -607,7 +607,10 @@ msgstr ""
 "👥 <b>Referral Program</b>: Invite friends and earn bonus days for each subscription — including <u>2nd-level referrals</u>! (Your friends invite others — you benefit too)"
 
 "<i>🔒 We guarantee secure payments and full data anonymity."
-"Please use VPN services in accordance with the laws of your country.</i>"
+"Please use VPN services in accordance with the laws of your country.</i>\n\n"
+
+"🚨 By using this service, you agree to our <a href="https://telegra.ph/Terms-of-Service-for-xcapenetru-Proxy-Service-05-09">Terms of Service</a>."
+
 
 #: app/bot/routers/main_menu/keyboard.py:25
 msgid "referral:button:get_referred_trial"

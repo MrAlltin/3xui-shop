@@ -544,7 +544,7 @@ msgstr "📲 <b>Выберите вашу платформу:</b>"
 
 #: app/bot/routers/download/handler.py:92
 msgid "download:message:platform_ios"
-msgstr "🍏 IOS"
+msgstr "📱 iOS"
 
 #: app/bot/routers/download/handler.py:94
 msgid "download:message:platform_android"
@@ -552,7 +552,7 @@ msgstr "🤖 Android"
 
 #: app/bot/routers/download/handler.py:96
 msgid "download:message:platform_windows"
-msgstr "💻 Windows"
+msgstr "🖥 Windows"
 
 #: app/bot/routers/download/handler.py:98
 msgid "download:message:platform_linux"
@@ -560,7 +560,7 @@ msgstr "🐧 Linux"
 
 #: app/bot/routers/download/handler.py:100
 msgid "download:message:platform_macos"
-msgstr "🍏 MacOS"
+msgstr "💻 MacOS"
 
 #: app/bot/routers/download/handler.py:99
 msgid "download:message:connect_to_vpn"
@@ -574,7 +574,7 @@ msgstr ""
 
 #: app/bot/routers/download/keyboard.py:23
 msgid "download:button:ios"
-msgstr "🍏 IOS"
+msgstr "📱 iOS"
 
 #: app/bot/routers/download/keyboard.py:27
 msgid "download:button:android"
@@ -582,7 +582,15 @@ msgstr "🤖 Android"
 
 #: app/bot/routers/download/keyboard.py:31
 msgid "download:button:windows"
-msgstr "💻 Windows"
+msgstr "🖥 Windows"
+
+#: app/bot/routers/download/keyboard.py:98
+msgid "download:button:linux"
+msgstr "🐧 Linux"
+
+#: app/bot/routers/download/keyboard.py:100
+msgid "download:button:macos"
+msgstr "💻 MacOS"
 
 #: app/bot/routers/download/keyboard.py:61
 msgid "download:button:download"
@@ -612,7 +620,9 @@ msgstr ""
 "👥 <b>Реферальная система</b>: Приглашайте друзей и получайте бонусные дни за их подписки <u>+ за рефералов 2-го уровня</u>!(Ваши друзья приглашают своих — вы тоже зарабатываете)\n\n"
 
 "<i>🔒 Мы гарантируем безопасность платежей и анонимность данных.\n"
-"Используйте VPN только в рамках законодательства вашей страны.</i>"
+"Используйте VPN только в рамках законодательства вашей страны.</i>\n\n"
+
+"🚨 Используя сервис, вы автоматически соглашаетесь с <a href="https://telegra.ph/Usloviya-ispolzovaniya-proksi-servisa-xcapenetru-05-09">условиями использования</a>."
 
 
 #: app/bot/routers/main_menu/keyboard.py:25
