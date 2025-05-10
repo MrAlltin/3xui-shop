@@ -29,9 +29,19 @@ def platforms_keyboard(previous_callback: str = None) -> InlineKeyboardMarkup:
             text=_("download:button:android"),
             callback_data=NavDownload.PLATFORM_ANDROID,
         ),
+    )
+    builder.row(
         InlineKeyboardButton(
             text=_("download:button:windows"),
             callback_data=NavDownload.PLATFORM_WINDOWS,
+        ),
+        InlineKeyboardButton(
+            text=_("download:button:macos"),
+            callback_data=NavDownload.PLATFORM_MACOS,
+        ),
+        InlineKeyboardButton(
+            text=_("download:button:linux"),
+            callback_data=NavDownload.PLATFORM_LINUX,
         ),
     )
 
