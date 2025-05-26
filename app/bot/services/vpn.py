@@ -134,7 +134,7 @@ class VPNService:
             return None
 
         subscription = extract_base_url(
-            url="https://subs.ee.vpn.xcapenet.ru/",
+            url=self.config.xui.SUBSCRIPTION_URL,
             port=self.config.xui.SUBSCRIPTION_PORT,
             path=self.config.xui.SUBSCRIPTION_PATH,
         )
@@ -172,17 +172,15 @@ class VPNService:
             sub_id=user.vpn_id,
             total_gb=total_gb,
         )
-        logger.critical(f"\n\nIT`s CONNECTIONS: {connections}\n\n\n")
         try:
             for connection in connections:
-                logger.critical(f"Connection: {connection}")
-                inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
-                logger.critical(f"It`s inbound_id: {inbound_id}")
-                
+                inbound_id = await self.server_pool_service.get_inbound_id(
+                    connection.api
+                )
                 await connection.api.client.add(
-                        inbound_id=inbound_id, clients=[new_client]
-                    )
-                logger.info(f"Successfully created client for {user.tg_id}")
+                    inbound_id=inbound_id, clients=[new_client]
+                )
+            logger.info(f"Successfully created client for {user.tg_id}")
             return True
         except Exception as exception:
             logger.error(f"Error creating client for {user.tg_id}: {exception}")
@@ -207,9 +205,7 @@ class VPNService:
         if not connections:
             return False
         try:
-            logger.critical(f"\n\nIt`s connections in update_client: {connections}")
             for connection in connections:
-                logger.critical(f"Connection: {connection}")
                 client = await connection.api.client.get_by_email(str(user.tg_id))
 
                 if client is None:
