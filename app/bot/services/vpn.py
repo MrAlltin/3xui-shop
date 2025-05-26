@@ -157,9 +157,9 @@ class VPNService:
         )
 
         await self.server_pool_service.assign_server_to_user(user)
-        connection = await self.server_pool_service.get_connection(user)
+        connections = await self.server_pool_service.get_all_connections()
 
-        if not connection:
+        if not connections:
             return False
 
         new_client = Client(
@@ -172,10 +172,8 @@ class VPNService:
             sub_id=user.vpn_id,
             total_gb=total_gb,
         )
-        inbound_ids = await self.server_pool_service.get_all_inbound_id(connection.api)
-        if inbound_ids is None:
-            inbound_ids = [1]
-        for inbound_id in inbound_ids:
+        for connection in connections:
+            inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
             try:
                 await connection.api.client.add(inbound_id=inbound_id, clients=[new_client])
                 logger.info(f"Successfully created client for {user.tg_id}")

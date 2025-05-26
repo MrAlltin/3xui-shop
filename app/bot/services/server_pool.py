@@ -39,13 +39,19 @@ class ServerPoolService:
                 server.online = True
                 server_conn = Connection(server=server, api=api)
                 self._servers[server.id] = server_conn
-                logger.info(f"Server {server.name} ({server.host}) added to pool successfully.")
+                logger.info(
+                    f"Server {server.name} ({server.host}) added to pool successfully."
+                )
             except Exception as exception:
                 server.online = False
-                logger.error(f"Failed to add server {server.name} ({server.host}): {exception}")
+                logger.error(
+                    f"Failed to add server {server.name} ({server.host}): {exception}"
+                )
 
             async with self.session() as session:
-                await Server.update(session=session, name=server.name, online=server.online)
+                await Server.update(
+                    session=session, name=server.name, online=server.online
+                )
 
     def _remove_server(self, server: Server) -> None:
         if server.id in self._servers:
@@ -68,7 +74,7 @@ class ServerPoolService:
             logger.error(f"Failed to fetch inbounds: {exception}")
             return None
         return inbounds[0].id
-    
+
     async def get_all_inbound_id(self, api: AsyncApi) -> List[int] | None:
         try:
             inbounds = await api.inbound.get_list()
@@ -79,6 +85,14 @@ class ServerPoolService:
             logger.error(f"Failed to fetch inbounds: {exception}")
             return None
         return ids
+
+    async def get_all_connections(self) -> List[Connection] | None:
+        connections: List[Connection] = []
+        if len(self._servers) == 0:
+            return None
+        for _, conn in self._servers.items():
+            connections.append(conn)
+        return connections
 
     async def get_connection(self, user: User) -> Connection | None:
         if not user.server_id:
@@ -140,8 +154,8 @@ class ServerPoolService:
     async def assign_server_to_user(self, user: User) -> None:
         async with self.session() as session:
             server = await self.get_available_server()
-            user.server_id = server.id # type: ignore
-            await User.update(session=session, tg_id=user.tg_id, server_id=server.id) # type: ignore
+            user.server_id = server.id  # type: ignore
+            await User.update(session=session, tg_id=user.tg_id, server_id=server.id)  # type: ignore
 
     async def get_available_server(self) -> Server | None:
         await self.sync_servers()
