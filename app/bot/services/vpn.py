@@ -175,7 +175,9 @@ class VPNService:
         for connection in connections:
             inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
             try:
-                await connection.api.client.add(inbound_id=inbound_id, clients=[new_client])
+                await connection.api.client.add(
+                    inbound_id=inbound_id, clients=[new_client]
+                )
                 logger.info(f"Successfully created client for {user.tg_id}")
                 return True
             except Exception as exception:
@@ -196,43 +198,45 @@ class VPNService:
         logger.info(
             f"Updating client {user.tg_id} | {devices} devices {duration} days."
         )
-        connection = await self.server_pool_service.get_connection(user)
+        connections = await self.server_pool_service.get_all_connections()
 
-        if not connection:
+        if not connections:
             return False
-
         try:
-            client = await connection.api.client.get_by_email(str(user.tg_id))
+            for connection in connections:
+                client = await connection.api.client.get_by_email(str(user.tg_id))
 
-            if client is None:
-                logger.critical(f"Client {user.tg_id} not found for update.")
-                return False
+                if client is None:
+                    logger.critical(f"Client {user.tg_id} not found for update.")
+                    return False
 
-            if not replace_devices:
-                current_device_limit = await self.get_limit_ip(user=user, client=client)
-                devices = current_device_limit + devices
+                if not replace_devices:
+                    current_device_limit = await self.get_limit_ip(
+                        user=user, client=client
+                    )
+                    devices = current_device_limit + devices
 
-            current_time = get_current_timestamp()
+                current_time = get_current_timestamp()
 
-            if not replace_duration:
-                expiry_time_to_use = max(client.expiry_time, current_time)
-            else:
-                expiry_time_to_use = current_time
+                if not replace_duration:
+                    expiry_time_to_use = max(client.expiry_time, current_time)
+                else:
+                    expiry_time_to_use = current_time
 
-            expiry_time = add_days_to_timestamp(
-                timestamp=expiry_time_to_use, days=duration
-            )
+                expiry_time = add_days_to_timestamp(
+                    timestamp=expiry_time_to_use, days=duration
+                )
 
-            client.enable = enable
-            client.id = user.vpn_id
-            client.expiry_time = expiry_time
-            client.flow = flow
-            client.limit_ip = devices
-            client.sub_id = user.vpn_id
-            client.total_gb = total_gb
+                client.enable = enable
+                client.id = user.vpn_id
+                client.expiry_time = expiry_time
+                client.flow = flow
+                client.limit_ip = devices
+                client.sub_id = user.vpn_id
+                client.total_gb = total_gb
 
-            await connection.api.client.update(client_uuid=client.id, client=client)
-            logger.info(f"Client {user.tg_id} updated successfully.")
+                await connection.api.client.update(client_uuid=client.id, client=client)
+                logger.info(f"Client {user.tg_id} updated successfully.")
             return True
         except Exception as exception:
             logger.error(f"Error updating client {user.tg_id}: {exception}")
