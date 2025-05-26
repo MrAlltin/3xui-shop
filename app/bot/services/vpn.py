@@ -173,19 +173,20 @@ class VPNService:
             total_gb=total_gb,
         )
         logger.critical(f"\n\nIT`s CONNECTIONS: {connections}\n\n\n")
-        for connection in connections:
-            logger.critical(f"Connection: {connection}")
-            inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
-            logger.critical(f"It`s inbound_id: {inbound_id}")
-            try:
+        try:
+            for connection in connections:
+                logger.critical(f"Connection: {connection}")
+                inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
+                logger.critical(f"It`s inbound_id: {inbound_id}")
+                
                 await connection.api.client.add(
-                    inbound_id=inbound_id, clients=[new_client]
-                )
+                        inbound_id=inbound_id, clients=[new_client]
+                    )
                 logger.info(f"Successfully created client for {user.tg_id}")
-                return True
-            except Exception as exception:
-                logger.error(f"Error creating client for {user.tg_id}: {exception}")
-                return False
+            return True
+        except Exception as exception:
+            logger.error(f"Error creating client for {user.tg_id}: {exception}")
+            return False
 
     async def update_client(
         self,
