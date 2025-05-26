@@ -172,8 +172,11 @@ class VPNService:
             sub_id=user.vpn_id,
             total_gb=total_gb,
         )
+        logger.critical(f"\n\nIT`s CONNECTIONS: {connections}\n\n\n")
         for connection in connections:
+            logger.critical(f"Connection: {connection}")
             inbound_id = await self.server_pool_service.get_inbound_id(connection.api)
+            logger.critical(f"It`s inbound_id: {inbound_id}")
             try:
                 await connection.api.client.add(
                     inbound_id=inbound_id, clients=[new_client]
@@ -203,7 +206,9 @@ class VPNService:
         if not connections:
             return False
         try:
+            logger.critical(f"\n\nIt`s connections in update_client: {connections}")
             for connection in connections:
+                logger.critical(f"Connection: {connection}")
                 client = await connection.api.client.get_by_email(str(user.tg_id))
 
                 if client is None:

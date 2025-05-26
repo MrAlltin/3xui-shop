@@ -130,7 +130,7 @@ async def callback_subscription_process(
     services: ServicesContainer,
 ) -> None:
     logger.info(f"User {user.tg_id} started subscription process.")
-    server = await services.server_pool.get_available_server()
+    server = await services.server_pool.get_all_available_server()
 
     if not server:
         await services.notification.show_popup(

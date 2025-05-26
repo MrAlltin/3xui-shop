@@ -154,8 +154,39 @@ class ServerPoolService:
     async def assign_server_to_user(self, user: User) -> None:
         async with self.session() as session:
             server = await self.get_available_server()
-            user.server_id = server.id  # type: ignore
+            user.server_id = server.id # type: ignore
             await User.update(session=session, tg_id=user.tg_id, server_id=server.id)  # type: ignore
+            
+    async def get_all_available_server(self) -> List[Server] | None:
+        await self.sync_servers()
+
+        servers_with_free_slots = [
+            conn.server
+            for conn in self._servers.values()
+            if conn.server.current_clients < conn.server.max_clients
+        ]
+
+        if servers_with_free_slots:
+            servers: List[Server] = servers_with_free_slots
+            for server in servers:
+                logger.debug(
+                    f"Found server with free slots: {server.name}"
+                    f"(clients: {server.current_clients}/{server.max_clients})"
+                )
+            return servers
+
+        servers_least_loaded = [conn.server for conn in self._servers.values()]
+        if servers_least_loaded:
+            servers: List[Server] = servers_least_loaded
+            for server in servers:
+                logger.warning(
+                    f"No servers with free slots. Using least loaded server: {server.name} "
+                    f"(clients: {server.current_clients}/{server.max_clients})"
+                )
+            return servers
+
+        logger.critical("No available servers found in pool")
+        return None
 
     async def get_available_server(self) -> Server | None:
         await self.sync_servers()

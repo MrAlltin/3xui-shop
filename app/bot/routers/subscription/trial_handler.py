@@ -28,7 +28,7 @@ async def callback_get_trial(
     logger.info(f"User {user.tg_id} triggered getting non-referral trial period.")
     await state.update_data({PREVIOUS_CALLBACK_KEY: NavMain.MAIN_MENU})
 
-    server = await services.server_pool.get_available_server()
+    server = await services.server_pool.get_all_available_server()
 
     if not server:
         await services.notification.show_popup(
