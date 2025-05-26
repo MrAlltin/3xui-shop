@@ -1,5 +1,6 @@
 import logging
 from dataclasses import dataclass
+from typing import List
 
 from py3xui import AsyncApi
 from sqlalchemy.ext.asyncio import async_sessionmaker
@@ -67,6 +68,17 @@ class ServerPoolService:
             logger.error(f"Failed to fetch inbounds: {exception}")
             return None
         return inbounds[0].id
+    
+    async def get_all_inbound_id(self, api: AsyncApi) -> List[int] | None:
+        try:
+            inbounds = await api.inbound.get_list()
+            ids: List[int] = []
+            for inbound in inbounds:
+                ids.append(inbound.id)
+        except Exception as exception:
+            logger.error(f"Failed to fetch inbounds: {exception}")
+            return None
+        return ids
 
     async def get_connection(self, user: User) -> Connection | None:
         if not user.server_id:
@@ -128,8 +140,8 @@ class ServerPoolService:
     async def assign_server_to_user(self, user: User) -> None:
         async with self.session() as session:
             server = await self.get_available_server()
-            user.server_id = server.id
-            await User.update(session=session, tg_id=user.tg_id, server_id=server.id)
+            user.server_id = server.id # type: ignore
+            await User.update(session=session, tg_id=user.tg_id, server_id=server.id) # type: ignore
 
     async def get_available_server(self) -> Server | None:
         await self.sync_servers()
