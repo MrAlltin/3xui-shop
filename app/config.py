@@ -97,6 +97,7 @@ class XUIConfig:
     USERNAME: str
     PASSWORD: str
     TOKEN: str | None
+    SUBSCRIPTION_URL: str
     SUBSCRIPTION_PORT: int
     SUBSCRIPTION_PATH: str
 
@@ -106,10 +107,12 @@ class CryptomusConfig:
     API_KEY: str | None
     MERCHANT_ID: str | None
 
+
 @dataclass
 class HeleketConfig:
     API_KEY: str | None
     MERCHANT_ID: str | None
+
 
 @dataclass
 class YooKassaConfig:
@@ -233,7 +236,9 @@ def load_config() -> Config:
         default=DEFAULT_SHOP_PAYMENT_YOOMONEY_ENABLED,
     )
     if payment_yoomoney_enabled:
-        yoomoney_notification_secret = env.str("YOOMONEY_NOTIFICATION_SECRET", default=None)
+        yoomoney_notification_secret = env.str(
+            "YOOMONEY_NOTIFICATION_SECRET", default=None
+        )
         yoomoney_wallet_id = env.str("YOOMONEY_WALLET_ID", default=None)
         if not yoomoney_notification_secret or not yoomoney_wallet_id:
             logger.error(
@@ -288,10 +293,15 @@ def load_config() -> Config:
                     error="SHOP_CURRENCY must be one of: {choices}",
                 ),
             ).upper(),
-            TRIAL_ENABLED=env.bool("SHOP_TRIAL_ENABLED", default=DEFAULT_SHOP_TRIAL_ENABLED),
-            TRIAL_PERIOD=env.int("SHOP_TRIAL_PERIOD", default=DEFAULT_SHOP_TRIAL_PERIOD),
+            TRIAL_ENABLED=env.bool(
+                "SHOP_TRIAL_ENABLED", default=DEFAULT_SHOP_TRIAL_ENABLED
+            ),
+            TRIAL_PERIOD=env.int(
+                "SHOP_TRIAL_PERIOD", default=DEFAULT_SHOP_TRIAL_PERIOD
+            ),
             REFERRED_TRIAL_ENABLED=env.bool(
-                "SHOP_REFERRED_TRIAL_ENABLED", default=DEFAULT_SHOP_REFERRED_TRIAL_ENABLED
+                "SHOP_REFERRED_TRIAL_ENABLED",
+                default=DEFAULT_SHOP_REFERRED_TRIAL_ENABLED,
             ),
             REFERRED_TRIAL_PERIOD=env.int(
                 "SHOP_REFERRED_TRIAL_PERIOD",
@@ -303,12 +313,16 @@ def load_config() -> Config:
             REFERRER_LEVEL_ONE_PERIOD=env.int(
                 "SHOP_REFERRER_LEVEL_ONE_PERIOD",
                 default=DEFAULT_SHOP_REFERRER_LEVEL_ONE_PERIOD,
-                validate=Range(min=1, error="SHOP_REFERRER_LEVEL_ONE_PERIOD must be >= 1"),
+                validate=Range(
+                    min=1, error="SHOP_REFERRER_LEVEL_ONE_PERIOD must be >= 1"
+                ),
             ),
             REFERRER_LEVEL_TWO_PERIOD=env.int(
                 "SHOP_REFERRER_LEVEL_TWO_PERIOD",
                 default=DEFAULT_SHOP_REFERRER_LEVEL_TWO_PERIOD,
-                validate=Range(min=1, error="SHOP_REFERRER_LEVEL_TWO_PERIOD must be >= 1"),
+                validate=Range(
+                    min=1, error="SHOP_REFERRER_LEVEL_TWO_PERIOD must be >= 1"
+                ),
             ),
             REFERRER_LEVEL_ONE_RATE=env.int(
                 "SHOP_REFERRER_LEVEL_ONE_RATE",
@@ -341,7 +355,10 @@ def load_config() -> Config:
             USERNAME=env.str("XUI_USERNAME"),
             PASSWORD=env.str("XUI_PASSWORD"),
             TOKEN=xui_token,
-            SUBSCRIPTION_PORT=env.int("XUI_SUBSCRIPTION_PORT", default=DEFAULT_SUBSCRIPTION_PORT),
+            SUBSCRIPTION_URL=env.str("XUI_SUBSCRIPTION_URL", default=""),
+            SUBSCRIPTION_PORT=env.int(
+                "XUI_SUBSCRIPTION_PORT", default=DEFAULT_SUBSCRIPTION_PORT
+            ),
             SUBSCRIPTION_PATH=env.str(
                 "XUI_SUBSCRIPTION_PATH",
                 default=DEFAULT_SUBSCRIPTION_PATH,
