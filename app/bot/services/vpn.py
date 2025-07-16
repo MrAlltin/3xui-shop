@@ -205,6 +205,8 @@ class VPNService:
         if not connections:
             return False
         try:
+            current_time = get_current_timestamp()
+            devices_total: int = 0
             for connection in connections:
                 client = await connection.api.client.get_by_email(str(user.tg_id))
 
@@ -216,9 +218,7 @@ class VPNService:
                     current_device_limit = await self.get_limit_ip(
                         user=user, client=client
                     )
-                    devices = current_device_limit + devices
-
-                current_time = get_current_timestamp()
+                    devices_total = current_device_limit + devices  # type: ignore
 
                 if not replace_duration:
                     expiry_time_to_use = max(client.expiry_time, current_time)
@@ -233,7 +233,7 @@ class VPNService:
                 client.id = user.vpn_id
                 client.expiry_time = expiry_time
                 client.flow = flow
-                client.limit_ip = devices
+                client.limit_ip = devices_total
                 client.sub_id = user.vpn_id
                 client.total_gb = total_gb
 
