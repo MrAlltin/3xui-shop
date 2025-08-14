@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     from .server_pool import ServerPoolService
@@ -206,7 +206,7 @@ class VPNService:
             return False
         try:
             current_time = get_current_timestamp()
-            devices_total: int = 0
+            devices_total = devices
             for connection in connections:
                 client = await connection.api.client.get_by_email(str(user.tg_id))
 
